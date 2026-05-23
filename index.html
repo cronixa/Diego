@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diego Torres | Opciones Binarias VIP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Outfit', sans-serif; background-color: #02040a; color: #e2e8f0; overflow-x: hidden; margin: 0; }
+        
+        /* Efectos de texto */
+        .text-glow { background: linear-gradient(to right, #00f2fe, #4facfe, #9b51e0); background-size: 200% auto; color: transparent; -webkit-background-clip: text; background-clip: text; animation: shine 4s linear infinite; }
+        @keyframes shine { to { background-position: 200% center; } }
+        
+        /* Paneles Cyber */
+        .cyber-panel { background: rgba(10, 15, 26, 0.6); backdrop-filter: blur(16px); border: 1px solid rgba(0, 242, 254, 0.15); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; box-shadow: 0 4px 30px rgba(0,0,0,0.5); }
+        .cyber-panel::before { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(to right, transparent, rgba(0, 242, 254, 0.08), transparent); transform: skewX(-20deg); transition: 0.5s; }
+        .cyber-panel:hover::before { left: 150%; }
+        .cyber-panel:hover { border-color: rgba(0, 242, 254, 0.6); box-shadow: 0 10px 40px rgba(0, 242, 254, 0.2); transform: translateY(-4px); }
+        
+        /* Botones */
+        .btn-neon { background: linear-gradient(45deg, #00f2fe, #9b51e0); color: #fff; box-shadow: 0 0 20px rgba(0, 242, 254, 0.4); transition: all 0.3s ease; cursor: pointer; border: none; position: relative; z-index: 1; }
+        .btn-neon::after { content: ''; position: absolute; inset: -2px; background: linear-gradient(45deg, #00f2fe, #9b51e0, #00f2fe); z-index: -1; filter: blur(10px); opacity: 0; transition: opacity 0.3s ease; }
+        .btn-neon:hover { transform: scale(1.03); }
+        .btn-neon:hover::after { opacity: 0.8; }
+        
+        /* Ocultar Scrollbar */
+        .hide-scroll::-webkit-scrollbar { display: none; }
+        .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Calculadora */
+        input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 24px; width: 24px; border-radius: 50%; background: #00f2fe; cursor: pointer; margin-top: -10px; box-shadow: 0 0 20px #00f2fe, inset 0 0 5px #fff; transition: transform 0.1s; }
+        input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
+        input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 4px; cursor: pointer; background: rgba(0, 242, 254, 0.2); border-radius: 2px; }
+
+        /* ANIMACIONES DE FONDO (CYBERPUNK) */
+        .cyber-floor { position: fixed; bottom: -30%; left: -50%; right: -50%; height: 80vh; background-image: linear-gradient(to right, rgba(0, 242, 254, 0.1) 1px, transparent 1px), linear-gradient(to top, rgba(0, 242, 254, 0.1) 1px, transparent 1px); background-size: 60px 60px; transform: perspective(500px) rotateX(75deg); animation: floorMove 3s linear infinite; z-index: -2; pointer-events: none; mask-image: linear-gradient(to top, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 80%); -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 80%); }
+        @keyframes floorMove { from { background-position: 0 0; } to { background-position: 0 60px; } }
+
+        .glow-bg { position: fixed; border-radius: 50%; filter: blur(150px); z-index: -3; opacity: 0.35; pointer-events: none; }
+        @keyframes drift1 { 0% { transform: translate(0, 0); } 50% { transform: translate(60px, 60px); } 100% { transform: translate(0, 0); } }
+        .animate-drift-1 { animation: drift1 12s ease-in-out infinite; }
+
+        /* Animación Scroll y Timeline */
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .timeline-line { position: absolute; left: 50%; transform: translateX(-50%); width: 2px; height: 100%; background: linear-gradient(to bottom, #00f2fe, #9b51e0, transparent); }
+        @media (max-width: 768px) { .timeline-line { left: 20px; } }
+
+        /* ANIMACIÓN DE EMOJIS */
+        @keyframes hit-target { 0%, 100% { transform: scale(1) rotate(0deg); } 10% { transform: scale(1.2) rotate(-10deg); } 20% { transform: scale(1) rotate(5deg); } 30% { transform: scale(1.1) rotate(0deg); } }
+        .animate-target { display: inline-block; animation: hit-target 3s ease-in-out infinite; transform-origin: center; }
+        @keyframes spin-gear { 100% { transform: rotate(360deg); } }
+        .animate-gear { display: inline-block; animation: spin-gear 4s linear infinite; transform-origin: center; }
+        @keyframes pulse-brain { 0%, 100% { transform: scale(1); filter: brightness(1); } 50% { transform: scale(1.15); filter: brightness(1.3); } }
+        .animate-brain { display: inline-block; animation: pulse-brain 2s ease-in-out infinite; }
+        
+        /* Top Banner FOMO */
+        .fomo-banner { background: linear-gradient(90deg, #9b51e0, #00f2fe); animation: gradientMove 3s ease infinite; background-size: 200% 200%; }
+        @keyframes gradientMove { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+        /* Аккордеон */
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-in-out, margin-top 0.4s ease-in-out, opacity 0.4s ease-in-out; opacity: 0; }
+        .accordion-content.open { opacity: 1; }
+    </style>
+</head>
+<body class="antialiased selection:bg-cyan-500 selection:text-white pb-10 relative">
+
+    <canvas id="matrix-canvas" class="fixed inset-0 z-[-3] opacity-[0.12] pointer-events-none"></canvas>
+    <div class="cyber-floor"></div>
+    <div class="glow-bg bg-cyan-600 w-[600px] h-[600px] top-[-10%] left-[-10%] animate-drift-1"></div>
+    <div class="glow-bg bg-purple-700 w-[700px] h-[700px] top-[30%] right-[-15%] animate-drift-1" style="animation-delay: -3s;"></div>
+
+    <div class="fomo-banner fixed w-full top-0 z-[60] text-center py-1.5 text-xs font-bold text-white tracking-widest shadow-lg uppercase">
+        🔥 Solo quedan 2 cupos para la sesión VIP de hoy
+    </div>
+
+    <nav class="fixed w-full z-50 top-[30px] border-b border-cyan-500/10 bg-[#02040a]/80 backdrop-blur-lg">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-black tracking-tighter uppercase">
+                Diego<span class="text-glow">Torres</span>
+            </div>
+            <div class="hidden lg:flex gap-8 text-sm font-bold text-gray-400">
+                <a href="#about" class="hover:text-cyan-400 transition">Trayectoria</a>
+                <a href="#advantages" class="hover:text-cyan-400 transition">Beneficios</a>
+                <a href="#method" class="hover:text-cyan-400 transition">Formatos</a>
+                <a href="#faq" class="hover:text-cyan-400 transition">FAQ</a>
+            </div>
+            <button onclick="openQuiz()" class="border border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10 hover:shadow-[0_0_15px_rgba(0,242,254,0.4)] text-xs font-bold py-2 px-5 rounded-lg transition-all">
+                Empezar ahora
+            </button>
+        </div>
+    </nav>
+
+    <div id="live-toast" class="fixed bottom-6 left-6 z-[60] cyber-panel p-4 rounded-xl flex items-center gap-3 transform -translate-x-[150%] opacity-0 transition-all duration-500 max-w-xs border-l-4 border-l-cyan-400">
+        <div class="w-8 h-8 rounded-full bg-cyan-500/20 flex items-center justify-center">
+            <span class="text-cyan-400 text-sm font-black">✓</span>
+        </div>
+        <div>
+            <p class="text-[10px] text-gray-400 uppercase tracking-wider" id="toast-time">Live Update</p>
+            <p class="text-sm font-bold text-white" id="toast-msg">Operación EUR/USD cerrada: +85%</p>
+        </div>
+    </div>
+
+    <div id="quiz-modal" class="fixed inset-0 z-[100] bg-[#02040a]/95 backdrop-blur-md flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
+        <div class="cyber-panel max-w-md w-full mx-4 rounded-3xl p-8 relative border-t-2 border-cyan-500 shadow-[0_0_50px_rgba(0,242,254,0.1)]">
+            <button onclick="closeQuiz()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">✕</button>
+            
+            <div id="quiz-step-1" class="block">
+                <p class="text-cyan-400 text-sm font-bold mb-2 tracking-widest uppercase">Paso 1 de 2</p>
+                <h3 class="text-2xl font-black mb-6">¿Cuál es tu experiencia en binarias?</h3>
+                <div class="space-y-3">
+                    <button onclick="nextStep(2)" class="w-full text-left p-4 rounded-xl border border-white/10 hover:border-cyan-500/50 hover:bg-cyan-500/5 transition">Novato (recién empiezo)</button>
+                    <button onclick="nextStep(2)" class="w-full text-left p-4 rounded-xl border border-white/10 hover:border-cyan-500/50 hover:bg-cyan-500/5 transition">Tengo experiencia pero quemo cuentas</button>
+                </div>
+            </div>
+            
+            <div id="quiz-step-2" class="hidden">
+                <p class="text-cyan-400 text-sm font-bold mb-2 tracking-widest uppercase">Paso 2 de 2</p>
+                <h3 class="text-2xl font-black mb-6">¿Cuál es tu capital inicial?</h3>
+                <div class="space-y-3">
+                    <button onclick="nextStep(3)" class="w-full text-left p-4 rounded-xl border border-white/10 hover:border-cyan-500/50 hover:bg-cyan-500/5 transition">El mínimo técnico ($30)</button>
+                    <button onclick="nextStep(3)" class="w-full text-left p-4 rounded-xl border border-white/10 hover:border-cyan-500/50 hover:bg-cyan-500/5 transition">$100 - $500</button>
+                    <button onclick="nextStep(3)" class="w-full text-left p-4 rounded-xl border border-white/10 hover:border-cyan-500/50 hover:bg-cyan-500/5 transition">Más de $500</button>
+                </div>
+            </div>
+
+            <div id="quiz-step-3" class="hidden text-center py-8">
+                <div class="inline-block w-16 h-16 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin mb-6"></div>
+                <h3 class="text-xl font-black text-cyan-400 animate-pulse" id="loading-text">Analizando tu perfil...</h3>
+            </div>
+
+            <div id="quiz-step-4" class="hidden">
+                <p class="text-cyan-400 text-sm font-bold mb-2 tracking-widest uppercase">Análisis Completo</p>
+                <h3 class="text-2xl font-black mb-4">Estrategia lista.</h3>
+                <p class="text-gray-400 text-sm mb-6 leading-relaxed">Acceso validado. Cero dinero por adelantado: <b>yo gano solo si vos ganás</b>, ya que el bróker cubre mi comisión. Vos te quedás con el 100% de tu profit.</p>
+                <a href="https://t.me/DiegoTorres_trader" class="block w-full btn-neon font-black py-4 text-center rounded-xl uppercase tracking-widest text-sm">
+                    Entrar al Canal
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <section class="relative min-h-screen flex items-center pt-32 pb-12">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="z-10 reveal">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-[10px] font-black uppercase tracking-widest mb-6 shadow-[0_0_15px_rgba(0,242,254,0.3)]">
+                    <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>Operativa Manual en Vivo
+                </div>
+                
+                <h1 class="text-5xl md:text-7xl font-black leading-[1.1] mb-6 tracking-tight uppercase">
+                    Beneficios <br><span class="text-glow">sin ilusiones</span>
+                </h1>
+                <p class="text-gray-400 text-lg mb-10 max-w-lg leading-relaxed">
+                    Asesoría personalizada y señales de alta precisión en tiempo real. <b>Vos no pagás comisiones.</b> Mi negocio es simple: yo gano solo si vos ganás, el bróker me paga por tu volumen.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-5 mb-10">
+                    <a href="https://t.me/DiegoTorres_trader" class="btn-neon font-black py-4 px-8 rounded-xl uppercase tracking-widest text-center text-sm flex items-center justify-center w-full md:w-max">Quiero mi sesión manual</a>
+                </div>
+                
+                <div class="pt-6 border-t border-white/10 max-w-md">
+                    <p class="text-xs text-gray-500 uppercase tracking-widest font-bold mb-3">Plataforma Oficial Exclusiva</p>
+                    <div class="flex gap-4 items-center opacity-90">
+                        <div class="px-5 py-2 border border-cyan-500/50 rounded-lg text-sm font-black text-white bg-cyan-500/10 inline-block shadow-[0_0_10px_rgba(0,242,254,0.2)]">Cronika</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative w-full h-[450px] sm:h-[550px] z-10 reveal delay-200">
+                <div class="w-full h-full cyber-panel rounded-3xl overflow-hidden p-1 border-t-2 border-l-2 border-cyan-500/50">
+                    <img src="photo_2025-11-16_16-30-34.jpg" alt="Diego Torres" class="w-full h-full object-cover rounded-[22px] opacity-90 object-top">
+                </div>
+                
+                <div class="absolute -bottom-6 -right-2 md:-right-6 bg-[rgba(15,23,42,0.85)] backdrop-blur-xl px-6 py-4 rounded-2xl border border-cyan-500/50 shadow-[0_10px_30px_rgba(0,0,0,0.8)] z-20">
+                    <p class="text-[10px] text-cyan-400 font-black uppercase tracking-[0.2em] mb-1">Fundador & Trader</p>
+                    <p class="text-white font-black text-xl">Diego Torres</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-24 relative z-10 border-t border-cyan-500/10 bg-[#02040a]/40">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="text-3xl md:text-5xl font-black text-center mb-24 reveal uppercase italic">El Camino de <span class="text-glow pr-2">Diego</span></h2>
+            
+            <div class="relative">
+                <div class="timeline-line"></div>
+                
+                <div class="space-y-24">
+                    <div class="relative flex flex-col md:flex-row items-center reveal">
+                        <div class="flex-1 md:text-right md:pr-16 mb-4 md:mb-0 ml-12 md:ml-0">
+                            <h4 class="text-4xl font-black text-cyan-400 drop-shadow-[0_0_10px_rgba(0,242,254,0.5)]">2017</h4>
+                            <p class="text-white font-bold text-xl uppercase mb-2">Primeros Pasos y Errores</p>
+                            <p class="text-gray-400 text-sm leading-relaxed">Entré al mundo de las binarias buscando libertad. Perdí mis primeros ahorros operando por emoción, lo que me obligó a estudiar la psicología del mercado a fondo.</p>
+                        </div>
+                        <div class="absolute md:relative left-[10px] md:left-0 w-6 h-6 rounded-full bg-cyan-400 shadow-[0_0_15px_#00f2fe] z-10 border-4 border-[#02040a]"></div>
+                        <div class="flex-1 md:pl-16 hidden md:block"></div>
+                    </div>
+
+                    <div class="relative flex flex-col md:flex-row items-center reveal">
+                        <div class="flex-1 md:pr-16 hidden md:block"></div>
+                        <div class="absolute md:relative left-[10px] md:left-0 w-6 h-6 rounded-full bg-[#9b51e0] shadow-[0_0_15px_#9b51e0] z-10 border-4 border-[#02040a]"></div>
+                        <div class="flex-1 md:pl-16 mt-4 md:mt-0 ml-12 md:ml-0">
+                            <h4 class="text-4xl font-black text-[#9b51e0] drop-shadow-[0_0_10px_rgba(155,81,224,0.5)]">2019</h4>
+                            <p class="text-white font-bold text-xl uppercase mb-2">Dominio del Price Action</p>
+                            <p class="text-gray-400 text-sm leading-relaxed">Eliminé todos los indicadores basura. Desarrollé mi propia metodología basada en el comportamiento real del precio. La rentabilidad se volvió constante.</p>
+                        </div>
+                    </div>
+
+                    <div class="relative flex flex-col md:flex-row items-center reveal">
+                        <div class="flex-1 md:text-right md:pr-16 mb-4 md:mb-0 ml-12 md:ml-0">
+                            <h4 class="text-4xl font-black text-cyan-400 drop-shadow-[0_0_10px_rgba(0,242,254,0.5)]">2021</h4>
+                            <p class="text-white font-bold text-xl uppercase mb-2">Nacimiento del Canal</p>
+                            <p class="text-gray-400 text-sm leading-relaxed">Comencé a compartir mis sesiones. Lo que empezó con un grupo de amigos se convirtió en una comunidad operando en vivo y ganando de forma estable.</p>
+                        </div>
+                        <div class="absolute md:relative left-[10px] md:left-0 w-6 h-6 rounded-full bg-cyan-400 shadow-[0_0_15px_#00f2fe] z-10 border-4 border-[#02040a]"></div>
+                        <div class="flex-1 md:pl-16 hidden md:block"></div>
+                    </div>
+
+                    <div class="relative flex flex-col md:flex-row items-center reveal">
+                        <div class="flex-1 md:pr-16 hidden md:block"></div>
+                        <div class="absolute md:relative left-[10px] md:left-0 w-6 h-6 rounded-full bg-[#9b51e0] shadow-[0_0_15px_#9b51e0] z-10 border-4 border-[#02040a]"></div>
+                        <div class="flex-1 md:pl-16 mt-4 md:mt-0 ml-12 md:ml-0">
+                            <h4 class="text-4xl font-black text-[#9b51e0] drop-shadow-[0_0_10px_rgba(155,81,224,0.5)]">2025</h4>
+                            <p class="text-white font-bold text-xl uppercase mb-2">Alianza Diego VIP</p>
+                            <p class="text-gray-400 text-sm leading-relaxed">He creado un modelo «Win-Win» ideal: te ofrezco mis años de experiencia, un sinfín de estrategias y formas de ganar dinero en el mercado, y a cambio recibo el 3% de las ganancias. Una relación de colaboración ideal</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="advantages" class="py-24 relative z-10 border-t border-cyan-500/10">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-5xl font-black mb-4">¿Por qué <span class="text-glow">mi sistema?</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">La industria está llena de humo. Mira la diferencia real entre operar conmigo y operar con los "gurús" masivos.</p>
+            </div>
+
+            <div class="cyber-panel rounded-3xl overflow-x-auto border border-white/10 reveal delay-100 hide-scroll w-full">
+                <table class="w-full text-left border-collapse table-fixed">
+                    <thead>
+                        <tr class="bg-[#0f172a] text-cyan-400 uppercase text-[9px] sm:text-[10px] tracking-wider font-black border-b border-cyan-500/30">
+                            <th class="p-3 sm:p-6 w-1/3">Criterio</th>
+                            <th class="p-3 sm:p-6 text-center bg-cyan-500/10 text-white w-1/3">Diego Torres VIP</th>
+                            <th class="p-3 sm:p-6 text-center text-gray-500 w-1/3">Otros Canales</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-xs sm:text-sm font-bold text-gray-300">
+                        <tr class="border-b border-white/5 hover:bg-white/5 transition">
+                            <td class="p-3 sm:p-6 pr-1">Suscripción VIP</td>
+                            <td class="p-3 sm:p-6 text-center text-cyan-400">$0 USD</td>
+                            <td class="p-3 sm:p-6 text-center text-red-400/70">$50 - $200</td>
+                        </tr>
+                        <tr class="border-b border-white/5 hover:bg-white/5 transition">
+                            <td class="p-3 sm:p-6 pr-1">Comisión Generada</td>
+                            <td class="p-3 sm:p-6 text-center text-white">La paga el bróker</td>
+                            <td class="p-3 sm:p-6 text-center text-red-400/70">La pagás vos</td>
+                        </tr>
+                        <tr class="border-b border-white/5 hover:bg-white/5 transition">
+                            <td class="p-3 sm:p-6 pr-1">Gestión de Riesgo</td>
+                            <td class="p-3 sm:p-6 text-center text-white">1-3% Estricto</td>
+                            <td class="p-3 sm:p-6 text-center text-red-400/70">Martingala</td>
+                        </tr>
+                        <tr class="border-b border-white/5 hover:bg-white/5 transition">
+                            <td class="p-3 sm:p-6 pr-1">Operativa</td>
+                            <td class="p-3 sm:p-6 text-center text-white">Manual Real</td>
+                            <td class="p-3 sm:p-6 text-center text-red-400/70">Bots falsos</td>
+                        </tr>
+                        <tr class="border-b border-white/5 hover:bg-white/5 transition">
+                            <td class="p-3 sm:p-6 pr-1">Plataforma</td>
+                            <td class="p-3 sm:p-6 text-center text-white">Cronika Oficial</td>
+                            <td class="p-3 sm:p-6 text-center text-red-400/70">No reguladas</td>
+                        </tr>
+                        <tr class="hover:bg-white/5 transition">
+                            <td class="p-3 sm:p-6 pr-1">Retiros</td>
+                            <td class="p-3 sm:p-6 text-center text-cyan-400">Control tuyo</td>
+                            <td class="p-3 sm:p-6 text-center text-red-400/70">Congeladas</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section id="method" class="py-24 relative z-10 border-t border-cyan-500/10 bg-[#02040a]/40">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-black text-center mb-4 reveal">Formatos <span class="text-glow">Exclusivos</span></h2>
+            <p class="text-center text-gray-400 mb-16 max-w-2xl mx-auto reveal delay-100 uppercase text-xs tracking-widest">Presioná la tarjeta para ver los detalles.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                
+                <div class="cyber-panel p-8 rounded-3xl cursor-pointer reveal border-l-4 border-cyan-400" onclick="toggleAccordion('acc1')">
+                    <div class="flex justify-between items-center mb-2">
+                        <div class="flex items-center gap-4">
+                            <div class="text-cyan-400 text-3xl drop-shadow-[0_0_10px_rgba(0,242,254,0.5)] animate-target">🎯</div>
+                            <h3 class="text-xl font-black text-white uppercase tracking-tighter">Asesoría VIP Personalizada</h3>
+                        </div>
+                        <div class="text-cyan-400 transition-transform duration-300 font-black accordion-icon" id="icon-acc1">▼</div>
+                    </div>
+                    <p class="text-gray-400 text-sm ml-[3.5rem] mt-2">Conexión 1 a 1 para maximizar resultados.</p>
+                    
+                    <div id="acc1" class="accordion-content">
+                        <div class="pt-6 border-t border-cyan-500/20 mt-6 text-sm text-gray-300 space-y-4">
+                            <p>Olvidate de los canales masivos donde sos solo un número más. En este formato nos conectamos vos y yo de forma directa. Yo analizo el mercado al milímetro y te digo el segundo exacto para abrir cada operación.</p>
+                            <ul class="list-disc pl-4 space-y-2 text-cyan-400 font-bold">
+                                <li><b>Control Absoluto:</b> Vos manejás tu propio capital.</li>
+                                <li><b>Cero Errores:</b> Sin bots. Todo es ejecución humana.</li>
+                                <li><b>Garantía Win-Win:</b> Mi comisión la paga el bróker.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="cyber-panel p-8 rounded-3xl cursor-pointer reveal delay-100 border-l-4 border-cyan-600" onclick="toggleAccordion('acc2')">
+                    <div class="flex justify-between items-center mb-2">
+                        <div class="flex items-center gap-4">
+                            <div class="text-cyan-600 text-3xl drop-shadow-[0_0_10px_rgba(8,145,178,0.5)] animate-gear">⚙️</div>
+                            <h3 class="text-xl font-black text-white uppercase tracking-tighter">Copytrading Automático</h3>
+                        </div>
+                        <div class="text-cyan-400 transition-transform duration-300 font-black accordion-icon" id="icon-acc2">▼</div>
+                    </div>
+                    <p class="text-gray-400 text-sm ml-[3.5rem] mt-2">Sincronizá tu cuenta con mi panel operativo.</p>
+                    
+                    <div id="acc2" class="accordion-content">
+                        <div class="pt-6 border-t border-cyan-500/20 mt-6 text-sm text-gray-300 space-y-4">
+                            <p>Ingreso pasivo puro. Cuando yo abro una operación en mi panel, se replica automáticamente en el tuyo con la gestión de riesgo que ajustemos previamente.</p>
+                            <p>Ideal si no tenés tiempo de estar pegado a la pantalla. Mismo riesgo, mismo beneficio. Vos retirás tu dinero tranquilamente al final de la semana.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cyber-panel p-8 rounded-3xl cursor-pointer reveal border-l-4 border-[#9b51e0]" onclick="toggleAccordion('acc3')">
+                    <div class="flex justify-between items-center mb-2">
+                        <div class="flex items-center gap-4">
+                            <div class="text-[#9b51e0] text-3xl drop-shadow-[0_0_10px_rgba(155,81,224,0.5)] animate-target">📱</div>
+                            <h3 class="text-xl font-black text-white uppercase tracking-tighter">Canal VIP (Señales)</h3>
+                        </div>
+                        <div class="text-cyan-400 transition-transform duration-300 font-black accordion-icon" id="icon-acc3">▼</div>
+                    </div>
+                    <p class="text-gray-400 text-sm ml-[3.5rem] mt-2">2 sesiones diarias en vivo directo por chat de Telegram.</p>
+                    
+                    <div id="acc3" class="accordion-content">
+                        <div class="pt-6 border-t border-purple-500/20 mt-6 text-sm text-gray-300 space-y-4">
+                            <p>Operativa en tiempo real para el equipo. Yo analizo y envío la instrucción exacta al chat, vos simplemente copiás el par, el tiempo y la dirección.</p>
+                            <ul class="list-disc pl-4 space-y-2 text-[#9b51e0] font-bold">
+                                <li><b>Doble Sesión:</b> Oportunidades claras por la mañana y por la tarde.</li>
+                                <li><b>Cero Complicaciones:</b> Solo necesitás leer el chat y hacer clic.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cyber-panel p-8 rounded-3xl cursor-pointer reveal delay-100 border-l-4 border-blue-500" onclick="toggleAccordion('acc4')">
+                    <div class="flex justify-between items-center mb-2">
+                        <div class="flex items-center gap-4">
+                            <div class="text-blue-500 text-3xl drop-shadow-[0_0_10px_rgba(59,130,246,0.5)] animate-brain">🧠</div>
+                            <h3 class="text-xl font-black text-white uppercase tracking-tighter">Academia y Mentalidad</h3>
+                        </div>
+                        <div class="text-cyan-400 transition-transform duration-300 font-black accordion-icon" id="icon-acc4">▼</div>
+                    </div>
+                    <p class="text-gray-400 text-sm ml-[3.5rem] mt-2">Aprendé a leer los gráficos por tu propia cuenta.</p>
+                    
+                    <div id="acc4" class="accordion-content">
+                        <div class="pt-6 border-t border-blue-500/20 mt-6 text-sm text-gray-300 space-y-4">
+                            <p>No solo te doy el pescado, te enseño a pescar. Te muestro mi lógica de entrada, cómo leer la acción del precio y las zonas clave institucionales.</p>
+                            <p>Aprenderás a controlar la ansiedad y el FOMO, para que dejes de operar por venganza y te conviertas en un trader consistente a largo plazo.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 relative z-10 border-t border-cyan-500/10">
+        <div class="max-w-4xl mx-auto px-6 reveal">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-5xl font-black mb-4 uppercase">Cálculo <span class="text-glow">Transparente</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Calculá tu ganancia diaria. Recordá: tú te llevas el 100% de tu profit, el bróker se encarga de pagarme mi comisión. Mínimo de ingreso: $30.</p>
+            </div>
+
+            <div class="cyber-panel p-8 md:p-16 rounded-[40px] border-t border-cyan-500/50 shadow-[0_0_30px_rgba(0,242,254,0.05)]">
+                <div class="mb-12">
+                    <div class="flex justify-between text-sm font-black mb-6 uppercase tracking-widest">
+                        <span class="text-gray-500">Capital Inicial:</span>
+                        <span class="text-cyan-400 text-4xl drop-shadow-[0_0_10px_rgba(0,242,254,0.5)]" id="calc-dep-val">$30</span>
+                    </div>
+                    <input type="range" id="calc-range" min="30" max="5000" step="10" value="30" class="w-full h-2">
+                    <div class="flex justify-between text-[10px] text-gray-600 mt-4 font-black">
+                        <span>MÍNIMO $30</span>
+                        <span>MÁXIMO $5,000</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-center font-black">
+                    <div class="bg-cyan-500/10 p-8 rounded-3xl border border-cyan-500/30 shadow-[inset_0_0_20px_rgba(0,242,254,0.1)]">
+                        <p class="text-[10px] text-gray-400 uppercase tracking-[0.2em] mb-2">Tu Ganancia Neta Promedio</p>
+                        <p class="text-5xl text-white" id="calc-client-profit">~$20</p>
+                        <p class="text-[10px] text-cyan-400 font-bold mt-4 uppercase">100% PARA VOS - CERO COSTO</p>
+                    </div>
+                    <div class="bg-white/5 p-8 rounded-3xl border border-white/10 flex flex-col justify-center">
+                        <p class="text-[10px] text-gray-500 uppercase tracking-widest mb-2">Comisión de Diego (3%)</p>
+                        <p class="text-3xl text-gray-400" id="calc-trader-profit">$1</p>
+                        <p class="text-[10px] text-purple-400 font-bold mt-2 uppercase">Pagada por el bróker Cronika</p>
+                    </div>
+                </div>
+                <p class="text-center text-xs text-gray-600 mt-8 font-bold">*Basado en una rentabilidad conservadora de ~68% neta por sesión conjunta.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="lifestyle" class="py-24 relative z-10 border-t border-cyan-500/10">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <h2 class="text-4xl md:text-5xl font-black mb-12 reveal tracking-tight">Vivir bajo <span class="text-glow">tus Reglas</span></h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="cyber-panel rounded-[30px] overflow-hidden h-[400px] reveal p-1">
+                    <img src="32a6baf9d4dc1dc254c98a8c1d228233.jpg" alt="Lifestyle Pool" class="w-full h-full object-cover rounded-[26px] opacity-80 hover:opacity-100 transition duration-700">
+                </div>
+                <div class="cyber-panel rounded-[30px] overflow-hidden h-[400px] reveal delay-100 p-1">
+                    <img src="28de324ca14331e116319102efc4ad6f.jpg" alt="Lifestyle Dubai" class="w-full h-full object-cover rounded-[26px] opacity-80 hover:opacity-100 transition duration-700">
+                </div>
+                <div class="cyber-panel rounded-[30px] overflow-hidden h-[400px] reveal delay-200 p-1">
+                    <img src="photo_2025-11-07_16-24-38.jpg" alt="Lifestyle Breakfast" class="w-full h-full object-cover rounded-[26px] opacity-80 hover:opacity-100 transition duration-700">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="py-24 relative z-10 border-t border-cyan-500/10 bg-[#02040a]/60">
+        <div class="max-w-5xl mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-black text-center mb-16 reveal uppercase italic">Preguntas <span class="text-glow">Frecuentes</span></h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="cyber-panel p-8 rounded-3xl reveal border-l-4 border-cyan-500">
+                    <h3 class="font-black text-lg mb-4 text-white uppercase">¿Cómo te pago la comisión?</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">No tenés que pagarme nada de tu bolsillo. Al operar en la plataforma Cronika bajo mi equipo VIP, el bróker me asigna un 3% por el volumen operativo que generamos. **Vos te quedás con el 100% de tu ganancia.**</p>
+                </div>
+                <div class="cyber-panel p-8 rounded-3xl reveal border-l-4 border-purple-500">
+                    <h3 class="font-black text-lg mb-4 text-white uppercase">¿Dónde está mi dinero?</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">Tu capital está en tu cuenta personal de Cronika. Vos sos el único que tiene acceso a depositar y retirar. Yo jamás toco tu plata, solo te envío las señales o te guío por el chat en tiempo real.</p>
+                </div>
+                <div class="cyber-panel p-8 rounded-3xl reveal border-l-4 border-blue-500">
+                    <h3 class="font-black text-lg mb-4 text-white uppercase">¿Qué pasa si pierdo?</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">Operamos con una gestión de riesgo profesional (1-3% del saldo por operación). La meta es la consistencia matemática, no la suerte. Si seguimos las reglas de mi sistema, la estadística nos protege.</p>
+                </div>
+                <div class="cyber-panel p-8 rounded-3xl reveal border-l-4 border-cyan-400">
+                    <h3 class="font-black text-lg mb-4 text-white uppercase">¿Necesito experiencia previa?</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">No. En las sesiones te guío de la mano únicamente por chat. Solo necesitás saber cuál es el botón verde (comprar) y cuál el rojo (vender), y hacer clic exactamente cuando yo te lo indique por escrito.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="reviews" class="py-24 relative z-10 border-y border-cyan-500/10 bg-[#02040a]/40">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6 reveal">
+                <div>
+                    <h2 class="text-3xl md:text-5xl font-black mb-4">Casos de <span class="text-glow">Éxito Reales</span></h2>
+                    <p class="text-gray-400">Resultados de miembros de nuestro equipo.</p>
+                </div>
+                <a href="https://t.me/+V_YNd3FpAdUxYjQ0" class="cyber-panel px-6 py-3 rounded-xl text-sm font-bold text-cyan-400 hover:bg-cyan-500/10 transition border border-cyan-500/30 uppercase tracking-widest text-[10px]">
+                    Ver más en Telegram →
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 reveal delay-100">
+                <div class="cyber-panel p-8 rounded-3xl border-l-2 border-cyan-500">
+                    <div class="flex items-center gap-4 mb-6">
+                        <img src="https://ui-avatars.com/api/?name=Carlos+E&background=00f2fe&color=02040a&bold=true" class="w-12 h-12 rounded-full border-2 border-cyan-500/50" alt="Avatar">
+                        <div>
+                            <p class="font-bold text-white text-lg">Carlos - Ecuador 🇪🇨</p>
+                            <p class="text-cyan-400 text-xs font-black tracking-widest uppercase">Miembro VIP</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed">"Tenía un miedo tremendo porque ya me habían estafado con un bot automático. Cuando hablé con Diego me dio desconfianza al inicio, pero al ver que no me pedía plata por adelantado, me la jugué. Hoy operamos de forma manual y recuperé todo lo perdido."</p>
+                </div>
+                
+                <div class="cyber-panel p-8 rounded-3xl border-l-2 border-[#9b51e0]">
+                    <div class="flex items-center gap-4 mb-6">
+                        <img src="https://ui-avatars.com/api/?name=Alejandra+C&background=9b51e0&color=fff&bold=true" class="w-12 h-12 rounded-full border-2 border-[#9b51e0]/50" alt="Avatar">
+                        <div>
+                            <p class="font-bold text-white text-lg">Alejandra - Colombia 🇨🇴</p>
+                            <p class="text-[#9b51e0] text-xs font-black tracking-widest uppercase">Copytrading</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed">"Lo mejor de la asesoría personal es que yo tengo el control de mi saldo. No le doy mi dinero a nadie. Diego analiza el gráfico, manda la señal al canal VIP y listo. Ya no dependo de señales raras que siempre llegan tarde."</p>
+                </div>
+                
+                <div class="cyber-panel p-8 rounded-3xl border-l-2 border-blue-500">
+                    <div class="flex items-center gap-4 mb-6">
+                        <img src="https://ui-avatars.com/api/?name=Mateo+M&background=3b82f6&color=fff&bold=true" class="w-12 h-12 rounded-full border-2 border-blue-500/50" alt="Avatar">
+                        <div>
+                            <p class="font-bold text-white text-lg">Mateo - México 🇲🇽</p>
+                            <p class="text-blue-400 text-xs font-black tracking-widest uppercase">Academia</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed">"Estaba escéptico porque la plataforma a veces se me ponía lenta, pero en las sesiones por chat con Diego aprendí a gestionar el riesgo de verdad. No te promete que te vas a hacer millonario mañana, te da resultados reales día a día. Totalmente recomendado."</p>
+                </div>
+
+                <div class="cyber-panel p-8 rounded-3xl border-l-2 border-cyan-400">
+                    <div class="flex items-center gap-4 mb-6">
+                        <img src="https://ui-avatars.com/api/?name=Javier+A&background=22d3ee&color=02040a&bold=true" class="w-12 h-12 rounded-full border-2 border-cyan-400/50" alt="Avatar">
+                        <div>
+                            <p class="font-bold text-white text-lg">Javier - Argentina 🇦🇷</p>
+                            <p class="text-cyan-400 text-xs font-black tracking-widest uppercase">Canal VIP</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed">"El formato de 2 sesiones diarias me queda perfecto por mi trabajo. Me conecto, copio la señal que envía al grupo y me retiro con profit. La transparencia de que él cobre directamente del bróker me dio la confianza que necesitaba para empezar."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cta" class="py-32 relative z-10 text-center reveal">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="cyber-panel p-10 md:p-16 rounded-[40px] border-t-2 border-cyan-500 shadow-[0_0_60px_rgba(0,242,254,0.1)]">
+                <h2 class="text-4xl md:text-6xl font-black mb-6 uppercase tracking-tighter">¿ESTÁS <span class="text-glow">LISTO</span>?</h2>
+                <p class="text-gray-400 mb-12 uppercase text-xs md:text-sm tracking-[0.3em] font-bold">Sin suscripciones. Sin pagos ocultos. Profit 100% tuyo.</p>
+                
+                <div class="inline-block bg-[#02040a]/80 rounded-3xl p-4 sm:p-8 mb-12 border border-white/5 shadow-inner max-w-full">
+                    <div class="flex justify-center gap-3 sm:gap-6 md:gap-10 text-2xl sm:text-4xl md:text-5xl font-black tabular-nums" id="countdown">
+                        <div class="flex flex-col"><span id="hours" class="text-white">04</span><span class="text-[10px] text-cyan-500 font-bold tracking-widest uppercase mt-2">Horas</span></div>
+                        <div class="text-white/20">:</div>
+                        <div class="flex flex-col"><span id="minutes" class="text-white">59</span><span class="text-[10px] text-cyan-500 font-bold tracking-widest uppercase mt-2">Minutos</span></div>
+                        <div class="text-white/20">:</div>
+                        <div class="flex flex-col"><span id="seconds" class="text-cyan-400">59</span><span class="text-[10px] text-cyan-500 font-bold tracking-widest uppercase mt-2">Segundos</span></div>
+                    </div>
+                </div>
+
+                <div>
+                    <a href="https://t.me/DiegoTorres_trader" class="btn-neon inline-block py-6 px-16 rounded-2xl font-black uppercase tracking-[0.2em] text-lg w-full md:w-max">
+                        Escribime al Telegram
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="border-t border-cyan-500/20 py-12 relative z-10 bg-[#02040a]">
+        <div class="max-w-7xl mx-auto px-6 text-center flex flex-col items-center">
+            <div class="text-gray-600 text-[10px] uppercase tracking-widest font-black mb-6">© 2026 DIEGO TORRES VIP - CRONIKA OFFICIAL PARTNER</div>
+            <div class="flex gap-8">
+                <a href="https://t.me/DiegoTorres_trader" class="text-gray-500 hover:text-cyan-400 transition text-xs font-bold uppercase tracking-widest">Telegram</a>
+                <a href="https://t.me/+V_YNd3FpAdUxYjQ0" class="text-gray-500 hover:text-cyan-400 transition text-xs font-bold uppercase tracking-widest">Canal de Reseñas</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 1. MATRIX RAIN
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+        const letters = '01▲▼$€'; const fontSize = 16;
+        const columns = canvas.width / fontSize; const drops = [];
+        for(let x = 0; x < columns; x++) drops[x] = 1;
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(2, 4, 10, 0.05)'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.font = fontSize + 'px monospace';
+            for(let i = 0; i < drops.length; i++) {
+                const text = letters.charAt(Math.floor(Math.random() * letters.length));
+                ctx.fillStyle = Math.random() > 0.95 ? '#9b51e0' : '#00f2fe';
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if(drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            }
+        }
+        setInterval(drawMatrix, 40);
+        window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
+
+        // 2. REVEAL AL SCROLLEAR
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // 3. LÓGICA DE ACORDEONES CORREGIDA
+        function toggleAccordion(id) {
+            const targetContent = document.getElementById(id);
+            const targetIcon = document.getElementById('icon-' + id);
+            const isAlreadyOpen = targetContent.style.maxHeight !== '0px' && targetContent.style.maxHeight !== '';
+
+            document.querySelectorAll('.accordion-content').forEach(el => {
+                el.style.maxHeight = '0px';
+                el.classList.remove('open');
+            });
+            document.querySelectorAll('.accordion-icon').forEach(el => {
+                el.style.transform = 'rotate(0deg)';
+            });
+
+            if (!isAlreadyOpen) {
+                targetContent.classList.add('open');
+                targetContent.style.maxHeight = targetContent.scrollHeight + 40 + "px";
+                targetIcon.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        // 4. CALCULADORA 
+        const calcRange = document.getElementById('calc-range');
+        const calcDepVal = document.getElementById('calc-dep-val');
+        const calcClientProfit = document.getElementById('calc-client-profit');
+        const calcTraderProfit = document.getElementById('calc-trader-profit');
+
+        calcRange.addEventListener('input', function() {
+            let dep = parseInt(this.value); 
+            calcDepVal.innerText = '$' + dep.toLocaleString();
+            
+            let totalProfit = Math.round(dep * 0.68); 
+            let traderShare = Math.round(totalProfit * 0.03); 
+            
+            calcClientProfit.innerText = '~$' + totalProfit.toLocaleString(); 
+            calcTraderProfit.innerText = '$' + traderShare.toLocaleString();
+        });
+        calcRange.dispatchEvent(new Event('input'));
+
+        // 5. QUIZ CON PANTALLA DE CARGA
+        const qModal = document.getElementById('quiz-modal');
+        function openQuiz() {
+            qModal.classList.remove('hidden'); setTimeout(() => qModal.classList.remove('opacity-0'), 10);
+            document.querySelectorAll('#quiz-modal > div > div[id^="quiz-step-"]').forEach(el => el.style.display = 'none');
+            document.getElementById('quiz-step-1').style.display = 'block';
+        }
+        function closeQuiz() { qModal.classList.add('opacity-0'); setTimeout(() => qModal.classList.add('hidden'), 300); }
+        function nextStep(step) {
+            document.querySelectorAll('#quiz-modal > div > div[id^="quiz-step-"]').forEach(el => el.style.display = 'none');
+            const target = document.getElementById('quiz-step-' + step);
+            target.style.display = 'block';
+
+            if (step === 3) {
+                let texts = ["Analizando perfil...", "Verificando cupos...", "Estrategia validada."];
+                let textEl = document.getElementById('loading-text');
+                let i = 0; textEl.innerText = texts[0];
+                let interval = setInterval(() => {
+                    i++; if(i < texts.length) { textEl.innerText = texts[i]; } else { clearInterval(interval); nextStep(4); }
+                }, 1200); 
+            }
+        }
+
+        // 6. TOAST FALSO DE LATAM Y TIMER
+        const msgs = ["Operación EUR/USD cerrada: +85%", "Retiro de $150 confirmado", "Operación GBP/JPY cerrada: +79%", "Nuevo miembro VIP activo", "Sesión completada con éxito"];
+        const toast = document.getElementById('live-toast'); const toastMsg = document.getElementById('toast-msg');
+        setInterval(() => {
+            toastMsg.innerText = msgs[Math.floor(Math.random() * msgs.length)];
+            toast.classList.remove('-translate-x-[150%]', 'opacity-0');
+            setTimeout(() => toast.classList.add('-translate-x-[150%]', 'opacity-0'), 4000);
+        }, 15000);
+
+        let timeInSeconds = 4 * 3600 + 59 * 60 + 59;
+        const hoursEl = document.getElementById('hours'); const minutesEl = document.getElementById('minutes'); const secondsEl = document.getElementById('seconds');
+        setInterval(() => {
+            if (timeInSeconds <= 0) timeInSeconds = 4 * 3600 + 59 * 60 + 59; 
+            timeInSeconds--;
+            hoursEl.textContent = Math.floor(timeInSeconds / 3600).toString().padStart(2, '0');
+            minutesEl.textContent = Math.floor((timeInSeconds % 3600) / 60).toString().padStart(2, '0');
+            secondsEl.textContent = (timeInSeconds % 60).toString().padStart(2, '0');
+        }, 1000);
+    </script>
+</body>
+</html>
